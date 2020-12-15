@@ -1,51 +1,82 @@
-import React from "react";
-
-function UploadMultiplefiles() {
-  const [files, setFiles] = useState([]);
-
-  const onFileChange = (e) => {
-    for (let i = 0; i < e.target.files.length; i++) {
-      const newFile = e.target.files[i];
-      newFile["id"] = Math.random();
-      // add an "id" property to each File object
-      setFiles((prevState) => [...prevState, newFile]);
-    }
+import React, { Component } from "react";
+import firebase, { db, storage } from "../firebase";
+import Dropzone from "react-dropzone";
+// import Progress from "./Progress";
+export default class Upload extends Component {
+  state = {
+    // progress: 0,
+    user_id: localStorage.getItem("user_id"),
+    isUploading: null,
   };
 
-  const uploadTask = firebase
-    .storage()
-    .ref()
-    .child(`your/file/path/${file.name}`)
-    .put(file);
-  uploadTask.on(
-    firebase.storage.TaskEvent.STATE_CHANGED,
-    (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log(`Progress: ${progress}%`);
-      if (snapshot.state === firebase.storage.TaskState.RUNNING) {
-        console.log("file uploading...");
-      }
-      // ...etc
-    },
-    (error) => console.log(error.code),
-    async () => {
-      const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-      console.log(downloadURL);
-      // the web storage url for our file
+  handleUpload(files) {
+    for (let i = 0; i < files.length; i++) {
+      const uploadTask = firebase
+        .storage()
+        .ref(`images/${files.item(i).name}`)
+        .put(files.item(i));
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const isUploading = true;
+          this.setState({ isUploading });
+          // const progress = Math.round(
+          //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          // );
+          // this.setState({ progress });
+        },
+        (error) => {},
+        () => {
+          storage
+            .ref("images")
+            .child(files.item(i).name)
+            .getDownloadURL()
+            .then((url) => {
+              const isUploading = false;
+              this.setState({ isUploading });
+              const image = {
+                url: url,
+                added: new Date(),
+              };
+              db.collection(this.state.user_id)
+                .add(image)
+                .then((res) => {
+                  this.props.history.push("/");
+                });
+            });
+        }
+      );
     }
-  );
+  }
 
-  return (
-    <div>
-      <form>
-        <label>
-          Select Files
-          <input type="file" multiple onChange={onFileChange} />
-        </label>
-        <button onClick={onUploadSubmission}>Upload</button>
-      </form>
-    </div>
-  );
+  render() {
+    return (
+      <div className="mt-5 text-center form-group">
+        {/* {this.state.isUploading ? (
+          <Progress percentage={this.state.progress} />
+        ) : (
+          ""
+        )} */}
+        <Dropzone>
+          {({ getRootProps, getInputProps }) => (
+            <section>
+              <div {...getRootProps()}>
+                <input
+                  {...getInputProps()}
+                  onDrop={(files) => this.handleUpload(files)}
+                  onChange={(e) => this.handleUpload(e.target.files)}
+                />
+                <div className="custom-file">
+                  <input className="custom-file-input" id="customFile" />
+                  <label className="custom-file-label" htmlFor="customFile">
+                    Drag and drop or choose a files
+                  </label>
+                </div>
+              </div>
+            </section>
+          )}
+        </Dropzone>
+      </div>
+    );
+  }
 }
-
-export default UploadMultiplefiles;
