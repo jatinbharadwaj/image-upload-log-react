@@ -1,16 +1,25 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 
 function UploadLogs() {
   return (
-    <div>
+    <Container>
+      <h1>Files</h1>
       <Table responsive>
         <thead>
           <tr>
             <th>#</th>
-            {Array.from({ length: 7 }).map((_, index) => (
-              <th key={index}>Table heading</th>
+            {[
+              "Image",
+              "File Name",
+              "File Type",
+              "Image Size Option",
+              "Tags",
+              "Copy Link",
+              "Action",
+            ].map((_, index) => (
+              <th key={_}>{_}</th>
             ))}
           </tr>
         </thead>
@@ -23,7 +32,7 @@ function UploadLogs() {
           </tr>
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 }
 
