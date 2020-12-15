@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-// import { storage } from "./firebase";
-import ImageUpload from "./Components/ImageUpload";
+import Admin from "./Components/Admin";
+import UploadImage from "./Components/UploadImage";
+import ImageUploader from "./Components/ImageUploader";
 import Login from "./Components/Login";
-import { useStateValue } from "./Components/StateProvider";
+import { useStateValue } from "./Components/StateProvider.js";
+import UploadLogs from "./Components/UploadLogs";
 import { auth } from "./firebase";
 
 function App() {
@@ -36,6 +38,26 @@ function App() {
             <Login />
           </Route>
         </Switch>
+
+        <Switch>
+          <Route path="/admin">
+            <Admin />
+          </Route>
+        </Switch>
+
+        <Switch>
+          <Route path="/imageuploader">
+            <ImageUploader />
+          </Route>
+        </Switch>
+
+        <Switch>
+          <Route path="/uploadlogs">
+            <UploadLogs />
+          </Route>
+        </Switch>
+
+        <Route path="/">{/* <Admin /> */}</Route>
       </div>
     </Router>
   );

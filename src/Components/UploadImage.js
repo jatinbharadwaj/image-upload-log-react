@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { storage } from "../firebase";
+// import UploadLogs from "./ImageUploader";
 
-function ImageUpload() {
+function UploadImage() {
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
@@ -55,4 +56,4 @@ function ImageUpload() {
   );
 }
 
-export default ImageUpload;
+export default UploadImage;
