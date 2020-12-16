@@ -3,24 +3,24 @@ import Dropzone from "react-dropzone";
 import { db, storage } from "../firebase";
 // import UploadLogs from "./ImageUploader";
 
-function UploadImage() {
+function UploadImage(imgType, imgUrl, imgCategory, imgTags) {
   const allInputs = { imgUrl: "", imgType: "", imgCategory: "", imgTags: "" };
   const [imagesAsFiles, setImagesAsFiles] = useState({});
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
 
-  const handleImageAsFile = (e) => {
-    let files = e.target.files;
-    if (files.length > 5) {
-      alert("Please Select upto 5 files or less");
-    } else {
-      const images = files;
-      for (let i = 0; i < images.length; i++) {
-        console.log(`image type ${typeof images.item(i)}`);
-      }
-      setImagesAsFiles((prevObject) => images);
-    }
-    console.log("Image as file", imagesAsFiles);
-  };
+  // const handleImageAsFile = (e) => {
+  //   let files = e.target.files;
+  //   if (files.length > 5) {
+  //     alert("Please Select upto 5 files or less");
+  //   } else {
+  //     const images = files;
+  //     for (let i = 0; i < images.length; i++) {
+  //       console.log(`image type ${typeof images.item(i)}`);
+  //     }
+  //     setImagesAsFiles((prevObject) => images);
+  //   }
+  //   console.log("Image as file", imagesAsFiles);
+  // };
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
     console.log("start of upload");
@@ -50,15 +50,14 @@ function UploadImage() {
             .getDownloadURL()
             .then((fireBaseUrl) => {
               setImageAsUrl((prevObject) => ({
-                ...prevObject,
                 imgUrl: fireBaseUrl,
                 imgType: typeof imagesAsFiles.item(i),
                 imgCategory: "Asset",
                 imgTags: "icon",
               }));
+
               // console.log(imageAsUrl);
             });
-
           db.collection("database1")
             .add(imageAsUrl)
             .then((res) => {
@@ -74,12 +73,7 @@ function UploadImage() {
         {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()}>
-              <input
-                {...getInputProps()}
-                onDrop={(files) => this.handleUpload(files)}
-                // onChange={(e) => this.handleUpload(e.target.files)}
-                onChange={handleImageAsFile}
-              />
+              {/* <input {...getInputProps()} onChange={handleImageAsFile} /> */}
               <div className="custom-file">
                 <input className="custom-file-input" id="customFile" />
                 <label className="custom-file-label" htmlFor="customFile">

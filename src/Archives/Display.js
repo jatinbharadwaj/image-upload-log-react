@@ -1,26 +1,27 @@
 import React, { Component } from "react";
-import firebase from "../firebase";
+import { db } from "../firebase";
 export default class Photos extends Component {
   state = {
     photos: [],
   };
   componentDidMount() {
     let images = [];
-    firebase
-      .firestore()
-      .collection(localStorage.getItem("user_id"))
+    db.collection("database1")
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
 
           let imageData = {
-            url: doc.data().url,
-            created: doc.data().added,
+            url: doc.data().imgUrl,
+            imgType: doc.data().imgType,
+            imgCategory: doc.data().imgCategory,
+            imgTags: doc.data().imgTags,
           };
           images.push(imageData);
         });
       });
+    console.log("here", images);
     this.setState({ photos: images });
   }
   render() {

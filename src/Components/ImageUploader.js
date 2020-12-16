@@ -1,5 +1,5 @@
 import React from "react";
-import "./ImageUploader.css";
+import "./CSS/ImageUploader.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
@@ -10,11 +10,15 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import Upload from "../Archives/UploadMultiplefiles";
+import UploadImage from "./UploadImage";
+import CheckImages from "./CheckImages";
 
 function ImageUploader() {
   return (
     <Container>
       <h1>Image Uploader</h1>
+      <br />
       <Form>
         <Form.Text text="secondary">
           Image size should be less than 8MB. Supported file formats: jpeg. png,
@@ -26,10 +30,10 @@ function ImageUploader() {
           </Form.Label>
           <Col sm={9} xs={9}>
             <Form.Control as="select">
-              <option>.jpeg</option>
-              <option>.png</option>
-              <option>.jpg</option>
-              <option>.tiff</option>
+              <option>Assets</option>
+              <option>Banner</option>
+              <option>Logo</option>
+              <option>Other</option>
               {/* <option>5</option> */}
             </Form.Control>
           </Col>
@@ -40,7 +44,7 @@ function ImageUploader() {
             Import image
           </Form.Label>
           <Col sm={9} xs={9}>
-            <Form.File id="uploadfile" column sm={2} />
+            <CheckImages />
           </Col>
         </Form.Group>
 
@@ -54,6 +58,7 @@ function ImageUploader() {
         </Form.Group>
       </Form>
       <div className="added__tags"></div>
+      <UploadImage />
     </Container>
   );
 }

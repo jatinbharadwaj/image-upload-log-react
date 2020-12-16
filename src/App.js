@@ -9,7 +9,8 @@ import { useStateValue } from "./Components/StateProvider.js";
 import UploadLogs from "./Components/UploadLogs";
 import { auth } from "./firebase";
 import DisplayImage from "./Components/DisplayImage";
-import Upload from "./Components/UploadMultiplefiles";
+import Upload from "./Archives/UploadMultiplefiles";
+import Photos from "./Archives/Display";
 
 function App() {
   const [{}, dispatch] = useStateValue();
@@ -66,18 +67,17 @@ function App() {
         </Switch>
 
         <Switch>
-          <Route path="/uploadmul">
-            <Upload />
-          </Route>
-        </Switch>
-
-        <Switch>
           <Route path="/display">
             <DisplayImage />
           </Route>
         </Switch>
+        <Switch>
+          {/* <Route path="/photos">
+            <Photos />
+          </Route> */}
+        </Switch>
 
-        <Route path="/">{/* <Admin /> */}</Route>
+        <Route path="/"></Route>
       </div>
     </Router>
   );
