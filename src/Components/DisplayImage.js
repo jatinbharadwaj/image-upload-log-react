@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Container, Table } from "react-bootstrap";
 import { db } from "../firebase";
+import UploadLogs from "./UploadLogs";
 
 // function DisplayImage() {
 //   const [imageData, setImageData] = useState({});
@@ -29,43 +31,67 @@ import { db } from "../firebase";
 // }
 
 function DisplayImage() {
-  const [ImageData, setImageData] = useState([]);
+  const [images, setImages] = useState([]);
 
-  const fetchImageData = async () => {
-    const response = db.collection("database1");
-    const data = await response.get();
-    data.docs.forEach((item) => {
-      setImageData([...ImageData, item.data()]);
-    });
-  };
   useEffect(() => {
-    fetchImageData();
+    const fetchImages = async () => {
+      const imagesCollection = await db.collection("database1").get();
+      setImages(
+        imagesCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+    fetchImages();
   }, []);
 
-  const disp = ImageData.map((img) => (
-    <>
-      <p>{img.imgName}</p>
-      <p>{img.imgTags}</p>
-      <p>{img.imgUrl}</p>
-    </>
-  ));
-
-  console.log(ImageData);
-
   return (
-    <div>
-      {ImageData &&
-        ImageData.map((Image) => {
-          console.log(Image.imgUrl);
-          return (
-            <div className="Image-container">
-              <img src={Image.imgUrl} />
-              <p>{Image.imgType}</p>
-            </div>
-          );
-        })}
-      {disp}
-    </div>
+    <Container>
+      <h1>Files</h1>
+      <Table responsive>
+        <thead>
+          <tr>
+            {[
+              "Image",
+              "File Name",
+              "File Type",
+              "Image Size Option",
+              "Tags",
+              "Copy Link",
+              "Action",
+            ].map((_, index) => (
+              <th key={_}>{_}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {images.map((image) => {
+            return (
+              <tr>
+                <td>
+                  {" "}
+                  <img
+                    width="100"
+                    height="100"
+                    src={image.url}
+                    alt={image.name}
+                  />{" "}
+                </td>
+                <td>{image.name}</td>
+                <td>{image.category}</td>
+                <td>Medium</td>
+                <td>{image.tags}</td>
+                <td>
+                  <a href={image.url} />
+                  🔗
+                </td>
+                <td>Delete</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </Container>
   );
 }
 

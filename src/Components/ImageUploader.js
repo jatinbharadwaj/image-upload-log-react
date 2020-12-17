@@ -17,7 +17,7 @@ import {
 import Upload from "../Archives/UploadMultiplefiles";
 import UploadImage from "./UploadImage";
 import CheckImages from "./CheckImages";
-import Tags from "../Tags";
+import Tags from "./Tags";
 
 function ImageUploader() {
   //=============================== ADD TAG ================
@@ -47,6 +47,7 @@ function ImageUploader() {
 
   const [tags, setTags] = useState(allTags);
   const [addTag, setAddTag] = useState([]);
+
   console.log(addTag);
   const buttonsTags = tags.map((tag) => (
     <>
@@ -123,9 +124,13 @@ function ImageUploader() {
                 .add({
                   url: fireBaseUrl,
                   type: imagesAsFiles.item(i).type,
-                  category: imagesAsFiles.item(i).type,
+                  category: category,
                   tags: addTag,
                   name: imagesAsFiles.item(i).name,
+                  createdAt:
+                    new Date().getHours().toLocaleString() +
+                    new Date().getMinutes().toLocaleString() +
+                    new Date().getSeconds().toLocaleString(),
                 })
                 .then((res) => {
                   console.log("Firebase Done");

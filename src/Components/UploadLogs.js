@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Table } from "react-bootstrap";
+import { db } from "../firebase";
 
-function UploadLogs() {
+function UploadLogs({ url, category, name, type, tags }) {
   return (
     <Container>
       <h1>Files</h1>
@@ -25,10 +26,15 @@ function UploadLogs() {
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            {Array.from({ length: 7 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
+            <td>
+              <img width="100" height="100" src={url} alt={name} />{" "}
+            </td>
+            <td>{name}</td>
+            <td>{type}</td>
+            <td>Medium</td>
+            <td>{tags}</td>
+            <td>{url}</td>
+            <td>Delete</td>
           </tr>
         </tbody>
       </Table>
