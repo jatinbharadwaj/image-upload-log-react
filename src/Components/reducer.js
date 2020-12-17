@@ -6,11 +6,11 @@ export const initialState = {
 const reducer = (state, action) => {
   console.log(action);
   switch (action.type) {
-    //   case "UPDATE_IMAGE":
-    //     return{
-    //       ...state,
-    //       image:[...state.image,action.item]
-    //     };
+    case "ADD_TO_BUCKET":
+      return {
+        ...state,
+        bucket: [...state.bucket, action.item],
+      };
 
     case "SET_USER":
       return {

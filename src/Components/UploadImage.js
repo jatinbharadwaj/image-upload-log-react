@@ -3,7 +3,7 @@ import Dropzone from "react-dropzone";
 import { db, storage } from "../firebase";
 // import UploadLogs from "./ImageUploader";
 
-function UploadImage(imgType, imgUrl, imgCategory, imgTags) {
+function UploadImage() {
   const allInputs = { imgUrl: "", imgType: "", imgCategory: "", imgTags: "" };
   const [imagesAsFiles, setImagesAsFiles] = useState({});
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
@@ -51,7 +51,7 @@ function UploadImage(imgType, imgUrl, imgCategory, imgTags) {
             .then((fireBaseUrl) => {
               setImageAsUrl((prevObject) => ({
                 imgUrl: fireBaseUrl,
-                imgType: typeof imagesAsFiles.item(i),
+                imgType: imagesAsFiles.item(i).type,
                 imgCategory: "Asset",
                 imgTags: "icon",
               }));

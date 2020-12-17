@@ -17,8 +17,8 @@ function CheckImages() {
           img.type !== "image/jpeg" &&
           img.type !== "image/tiff"
         ) {
-          return alert("Please choose the right extention or filetype!!");
-        } else if (img.size > 8000) {
+          return alert(`Please choose the right extention of ${img.name}`);
+        } else if (img.size > 8000000) {
           return alert("Maximum size should be less than 8 Mb");
         }
       }
@@ -48,4 +48,4 @@ function CheckImages() {
   );
 }
 
-export default CheckImages;
+export { CheckImages as default };

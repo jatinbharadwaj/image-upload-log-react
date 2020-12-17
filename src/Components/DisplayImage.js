@@ -30,6 +30,7 @@ import { db } from "../firebase";
 
 function DisplayImage() {
   const [ImageData, setImageData] = useState([]);
+
   const fetchImageData = async () => {
     const response = db.collection("database1");
     const data = await response.get();
@@ -41,10 +42,21 @@ function DisplayImage() {
     fetchImageData();
   }, []);
 
+  const disp = ImageData.map((img) => (
+    <>
+      <p>{img.imgName}</p>
+      <p>{img.imgTags}</p>
+      <p>{img.imgUrl}</p>
+    </>
+  ));
+
+  console.log(ImageData);
+
   return (
     <div>
       {ImageData &&
         ImageData.map((Image) => {
+          console.log(Image.imgUrl);
           return (
             <div className="Image-container">
               <img src={Image.imgUrl} />
@@ -52,6 +64,7 @@ function DisplayImage() {
             </div>
           );
         })}
+      {disp}
     </div>
   );
 }
