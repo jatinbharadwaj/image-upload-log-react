@@ -18,6 +18,7 @@ import Upload from "../Archives/UploadMultiplefiles";
 import UploadImage from "./UploadImage";
 import CheckImages from "./CheckImages";
 import Tags from "./Tags";
+import Admin from "./Admin";
 
 function ImageUploader() {
   //=============================== ADD TAG ================
@@ -143,6 +144,7 @@ function ImageUploader() {
 
   return (
     <Container>
+      <Admin />
       <h1>Image Uploader</h1>
       <br />
       <Form onSubmit={handleFireBaseUpload}>
@@ -204,28 +206,19 @@ function ImageUploader() {
           <Container fluid>{buttonsTags}</Container>
         </Form.Group>
 
-        {/* <Form.Group as={Row} controlId="addTag">
-          <Col sm={12}>
-            <Row>
-              <Form.Control as="textarea" />
-              <Button>Add Tag</Button>
-            </Row>
-            <div className="text">{addTag}</div>
-          </Col>
-        </Form.Group> */}
-
         <InputGroup>
           <FormControl
             placeholder="Add New Tag"
             aria-label=""
             aria-describedby=""
+            // onChange={(e)=>{setAddTag(e.target.value+ "   ")}}
           />
           <InputGroup.Append>
             <Button
               variant="outline-secondary"
-              onClick={(e) => {
-                setAddTag((obj) => [...obj, e.target.value + "    "]);
-              }}
+              // onClick={() => {
+
+              // }}
             >
               Add
             </Button>

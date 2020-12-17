@@ -1,34 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
+import { Container, Dropdown, DropdownButton, Table } from "react-bootstrap";
 import { db } from "../firebase";
 import UploadLogs from "./UploadLogs";
-
-// function DisplayImage() {
-//   const [imageData, setImageData] = useState({});
-
-//   useEffect(() => {
-//     let images = [];
-//     db.collection("database1")
-//       .get()
-//       .then(function (querySnapshot) {
-
-//         querySnapshot.forEach(function (doc) {
-//           // doc.data() is never undefined for query doc snapshots
-
-//           let imgData = {
-//             url: doc.data().imgUrl,
-//             imgType: doc.data().imgType,
-//             imgCategory: doc.data().imgCategory,
-//             imgTags: doc.data().imgTags,
-//           };
-//           images.push(imgData);
-//         });
-//       });
-//     setImageData((prevObject) => images);
-//   }, []);
-
-//   return <div></div>;
-// }
 
 function DisplayImage() {
   const [images, setImages] = useState([]);
@@ -79,13 +52,25 @@ function DisplayImage() {
                 </td>
                 <td>{image.name}</td>
                 <td>{image.category}</td>
-                <td>Medium</td>
+                <td>
+                  <DropdownButton id={`size-${image.name}`} title="Select Size">
+                    {/* <Dropdown.ItemText>Small</Dropdown.ItemText> */}
+                    <Dropdown.Item as="button" value="small">
+                      Small
+                    </Dropdown.Item>
+                    <Dropdown.Item as="button" value="medium">
+                      Medium
+                    </Dropdown.Item>
+                    <Dropdown.Item as="button" value="large">
+                      Large
+                    </Dropdown.Item>
+                  </DropdownButton>
+                </td>
                 <td>{image.tags}</td>
                 <td>
-                  <a href={image.url} />
-                  🔗
+                  <a href={image.url}>🔗 </a>
                 </td>
-                <td>Delete</td>
+                <td>🗑</td>
               </tr>
             );
           })}

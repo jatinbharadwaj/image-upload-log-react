@@ -12,7 +12,11 @@ function Login() {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((auth) => {
-        history.push("/");
+        if (email === "admin1@gmail.com" || email === "admin2@gmail.com") {
+          history.push("/admin");
+        } else {
+          history.push("/display");
+        }
       })
       .catch((error) => alert(error.message));
     //  Firebase Stuff goes jere
@@ -54,9 +58,7 @@ function Login() {
             Sign In
           </button>
         </form>
-        <p>
-          **Terms & Conditions. This is a fake website don't use actual password
-        </p>
+        <p>**Terms & Conditions.It's a simple image upload and logger webApp</p>
         <button
           onClick={register}
           type="submit"
