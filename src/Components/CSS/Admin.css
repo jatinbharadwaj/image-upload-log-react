@@ -1,0 +1,9 @@
+a {
+  color: #bff;
+  text-decoration: none;
+  padding: 0.5em;
+}
+
+a:hover {
+  color: seashell;
+}

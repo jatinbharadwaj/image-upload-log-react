@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./CSS/ImageUploader.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dropzone from "react-dropzone";
-import { db, storage } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import {
   Button,
   ButtonGroup,
@@ -15,12 +15,21 @@ import {
   FormControl,
 } from "react-bootstrap";
 import Upload from "../Archives/UploadMultiplefiles";
-import UploadImage from "./UploadImage";
-import CheckImages from "./CheckImages";
+import UploadImage from "../Archives/UploadImage";
+import CheckImages from "../Archives/CheckImages";
 import Tags from "./Tags";
 import Admin from "./Admin";
+import { useStateValue } from "./StateProvider";
 
 function ImageUploader() {
+  const [{ user }, dipatch] = useStateValue();
+
+  const handleAuthentication = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
+
   //=============================== ADD TAG ================
   const allTags = [
     "Icons",

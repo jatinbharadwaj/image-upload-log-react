@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Container, Dropdown, DropdownButton, Table } from "react-bootstrap";
-import { db } from "../firebase";
-import UploadLogs from "./UploadLogs";
+import { auth, db } from "../firebase";
+import Admin from "./Admin";
+import { useStateValue } from "./StateProvider";
+import UploadLogs from "../Archives/UploadLogs";
 
 function DisplayImage() {
   const [images, setImages] = useState([]);
+
+  const [{ user }, dipatch] = useStateValue();
+
+  const handleAuthentication = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -20,6 +30,14 @@ function DisplayImage() {
 
   return (
     <Container>
+      {user &&
+      (user.email === "admin1@gmail.com" ||
+        user.email === "admin2@gmail.com") ? (
+        <Admin />
+      ) : (
+        <p></p>
+      )}
+
       <h1>Files</h1>
       <Table responsive>
         <thead>
@@ -40,7 +58,7 @@ function DisplayImage() {
         <tbody>
           {images.map((image) => {
             return (
-              <tr>
+              <tr className={`id - ${image.name}`}>
                 <td>
                   {" "}
                   <img
