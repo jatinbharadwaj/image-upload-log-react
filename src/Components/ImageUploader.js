@@ -144,6 +144,7 @@ function ImageUploader() {
                 })
                 .then((res) => {
                   console.log("Firebase Done");
+                  alert(`Image has been uploaded!`);
                 });
             });
         }

@@ -64,7 +64,7 @@ function Login() {
           type="submit"
           className="login__registerButton"
         >
-          Create your Amazon Account
+          Create Account
         </button>
       </div>
     </div>
