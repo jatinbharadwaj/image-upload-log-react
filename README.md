@@ -66,3 +66,4 @@ Yet To Add
 - Most recent post ascending order
 - Delete Reference from Firestore and Storage
 - Customize Tags with top recent 25
+- Real time upload progress bar and Notification
