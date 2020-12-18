@@ -60,3 +60,9 @@
   -- USERS- user1@gmail.com, user2@gmail.com, user3@gmail.com and user4@gmail.com
 - Password(Same for all the profile candidates)
   Asdf@123
+  
+  ---------------------------------------------------------------------------------
+Yet To Add
+- Most recent post ascending order
+- Delete Reference from Firestore and Storage
+- Customize Tags with top recent 25
