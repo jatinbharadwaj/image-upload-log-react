@@ -14,7 +14,6 @@ function Admin() {
       auth.signOut();
     }
   };
-  console.log(user);
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">

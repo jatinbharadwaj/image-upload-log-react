@@ -54,7 +54,7 @@ function App() {
           </Route>
 
           <Route path="/upload">
-            <DisplayImage />
+            <ImageUploader />
           </Route>
 
           <Route path="/display">

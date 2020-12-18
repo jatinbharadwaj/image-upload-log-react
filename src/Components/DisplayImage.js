@@ -38,7 +38,7 @@ function DisplayImage() {
         <p></p>
       )}
 
-      <h1>Files</h1>
+      <h1>Display Images Logs</h1>
       <Table responsive>
         <thead>
           <tr>
@@ -72,7 +72,6 @@ function DisplayImage() {
                 <td>{image.category}</td>
                 <td>
                   <DropdownButton id={`size-${image.name}`} title="Select Size">
-                    {/* <Dropdown.ItemText>Small</Dropdown.ItemText> */}
                     <Dropdown.Item as="button" value="small">
                       Small
                     </Dropdown.Item>
